@@ -2,53 +2,44 @@
 #include <stdio.h>
 
 #define MAXELEMS 100000
-#define FIND 20
+#define FIND 2000
 
-
-
-int generateSomePattern(int *pattern)
+void generateRandoms(int *randoms, int *targets)
 {
-
+    for (int i = 0; i < MAXELEMS; i++)
+    {
+        randoms[i] = rand();
+    }
+    for (int i = 0; i < FIND; i++)
+    {
+        targets[i] = rand() % (20 + 1 - 2) + 2;
+    }
 }
-
 
 int main()
 {
-    int array[MAXELEMS];
-    int pattern[FIND];
+    int randoms[MAXELEMS];
+    int targets[FIND];
+    // just the number of hits found per random number
     int amountFound = 0;
 
     // to ensure that the same numbers get generated every time
     srand(42);
-    for (int i = 0; i < FIND; i++)
-    {
-        pattern[i] = rand() % (10 + 1 - 1) + 1;
-        printf("%d\n", pattern[i]);
-    }
-
-    // generateSomePattern(pattern);
-
-    for (int i = 0; i < MAXELEMS; i++)
-    {
-        array[i] = rand();
-        // printf("%d\n", array[i]);
-    }
+    generateRandoms(randoms, targets);
 
     for (int i = 0; i < FIND; i++)
     {
-        int lookFor = pattern[i];
+        int lookFor = targets[i];
         amountFound = 0;
 
         for (int j = 0; j < MAXELEMS; j++)
         {
-            if (array[i] % lookFor == 0)
+            if (randoms[i] % lookFor == 0)
             {
-                array[i] = rand();
+                randoms[i] = rand();
                 amountFound += 1;
             }
-            
         }
-        printf("%d\n", amountFound);
     }
         
 
